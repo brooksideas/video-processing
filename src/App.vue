@@ -1,18 +1,20 @@
 <template>
   <div id="app">
-     <h1>Video Processor</h1>
-    <Dashboard/>
+    <v-app>
+      <h1>Video Processor</h1>
+      <Dashboard />
+    </v-app>
   </div>
 </template>
 
-<script> 
-import Dashboard from './components/Dashboard.vue';
+<script>
+import Dashboard from "./components/Dashboard.vue";
 export default {
-  name: 'App',
-  components: { 
-    Dashboard
-  }
-}
+  name: "App",
+  components: {
+    Dashboard,
+  },
+};
 </script>
 
 <style>

@@ -97,7 +97,7 @@ export default {
         const { data } = response;
         const { frames } = data;
         this.Frames = frames;
-        console.log(this.Frames);
+
         // Set the Start time for the Frames
         // Extract each frame and place in one Second Interval on vis-timeline
         var frameStartTime, frameEndTime;
@@ -105,8 +105,6 @@ export default {
         var total_length = 0;
 
         this.Frames.map((frame) => {
-          console.log(frame.timestamp);
-
           total_length = frame.total_length;
 
           for (let second = 0; second <= total_length; second++) {
@@ -128,7 +126,6 @@ export default {
 
             this.items.push(item);
           }
-          console.log("Start items==>", this.items);
         });
       } catch (error) {
         console.error(error);
@@ -142,7 +139,6 @@ export default {
       );
       var duration = moment.duration(diff) / 1000; // this is the duration in seconds
       var startTime = this.startTime.split(" ")[1];
-      console.log("Cut Selection HHHH FINAL=>", startTime, duration);
 
       // Send Start time as Name of video , hh:mm:ss and Duration as number
       let data = {
@@ -150,17 +146,16 @@ export default {
         startTime: startTime,
         duration: duration,
       };
-      console.log("Req sent to backend-->", data);
+
       await axios
         .post("http://localhost:7000/api/video/cut", data)
-        .then(async (response) => {
-          console.log("AFTER CUT IS RETURNED-->", response);
+        .then(async () => {
           await axios
             .post("http://localhost:7000/api/video/edit")
-            .then(async (response) => {
+            .then(async () => {
               await axios
                 .post("http://localhost:7000/api/video/extract")
-                .then(async (response) => {
+                .then(async () => {
                   await axios.get("http://localhost:7000/api/video/all");
                 });
             });
